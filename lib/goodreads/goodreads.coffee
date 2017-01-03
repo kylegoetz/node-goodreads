@@ -69,7 +69,19 @@ class Goodreads
     @options.path = 'http://www.goodreads.com/review/list/' + userID + '.xml?' + querystring.stringify(shelfOptions)
     @getRequest callback
 
-  ### NOTE: Not Working Yet!!!! ###
+  ### REVIEWS ###
+
+  # getReviews - Get all shelves for a given user
+  # Input: userId
+  # Output: json (as callback)
+  # Example: getReviews '4085451', (json) ->
+  getReviews: (userId, callback) ->
+    # Provide path to the API
+    @options.path = 'http://www.goodreads.com/review/list.xml?per_page=20&sort=date_added&order=d&page=1&v=2&id=' + userId + "&key=" + @options.key
+
+    @getRequest callback
+
+
   # getFriends - Get friends for a given user
   # Input: userId, accessToken, accessTokenSecret
   # Output: json (as callback)
@@ -87,7 +99,8 @@ class Goodreads
         callback data
 
 
-  ### Search ###
+
+
   # searchBooks
   # q: search value
   # Output: json (as callback)
@@ -98,7 +111,7 @@ class Goodreads
 
 
 
-  ### OAUTH ###
+
 
   # requestToken - calls back an object with oauthToken, oauthTokenSecret, and the URL!
   # Input: none
@@ -146,7 +159,7 @@ class Goodreads
         else
           callback 'Error: Invalid XML response received from Goodreads', 500
 
-  ### API: 'GET' ###
+  # API: 'GET' ###
   getRequest: (callback) ->
     _options = @options
 
